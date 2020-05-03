@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Genome List</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div th:if="${message}">
+    <span th:text="${message}" style="text-decoration: blink;color: green;text-align: center;"></span>
+</div>
+
+<div class="container">
+  <h1>Genome Annotation</h1>
+  <div class="row col-md-16 table-responsive">
+    <table id="genomeTab" class="table">
+      <thead>
+        <tr>
+          <th>Chromosome</th>
+          <th>Start Point</th>
+          <th>End Point</th>
+          <th>Reference Allele</th>
+          <th>Variant Allele</th>
+          <th>hgsvp</th>
+        </tr>
+      </thead>
+      <tbody>
+      
+       <tr th:if="${genomeList.empty}">
+            <td colspan="2"> No Books Available </td>
+        </tr>
+         <tr th:each="GenomeVariants : ${genomeList}">
+              <td ><span th:text="${GenomeVariants.chromosome}">chromsome</span></td>
+              <td ><span th:text="${GenomeVariants.startPosition}">startpoint</span></td>
+              <td ><span th:text="${GenomeVariants.endPosition}">endPosition</span></td>
+              <td ><span th:text="${GenomeVariants.refAllele}">refAllele</span></td>
+              <td ><span th:text="${GenomeVariants.tumorSeqAllele}">tumorSeqAllele</span></td>
+              <!-- <td th:text="${GenomeVariants.hgvsp}">hgsvp</td>  -->
+              
+              <!-- Iterating hgsvp list -->
+              <td>
+	              <!-- <div th:if="${GenomeVariants.hgvsp.empty}">
+	                 <span th:text="Not Found">Not Found</span>
+	              </div> -->
+	              <ul th:each="hgvsp : ${GenomeVariants?.hgvsp}">
+	                 <li><span th:text="${hgvsp!=null} ? ${hgvsp} : 'Not Found'">hgsvp</span></li>
+	              </ul>
+	              
+	              <!-- <span th:text="${someObject.someProperty != null} ? ${someObject.someProperty} : 'null value!'">someValue</span> -->
+
+	              
+              </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
